@@ -43,12 +43,21 @@ const generateRandomPhrase = category => {
     return categoryPhrases[randomIndex];
 }
 
-// Function to display the generated phrase in the console
-const generateRandomCategoryPhrase = () => {
-    const categories = Object.keys(phraseCategories);
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const randomPhrase = generateRandomPhrase(randomCategory);
-    console.log(`Generated: Random Category - ${randomCategory}, Phrase: ${randomPhrase}`);
-};
+const getSelectedCategory = () => {
+    const categorySelect = document.getElementById('categorySelect');
+    return categorySelect.value;
+}
 
-generateRandomCategoryPhrase();
+// Function to display the generated phrase in the HTML
+const updateDisplayedPhrase = () => {
+    const generatedPhraseElement = document.getElementById('generatePhrase');
+    const selectedCategory = getSelectedCategory();
+    const randomPhrase = generateRandomPhrase(selectedCategory);
+    generatedPhraseElement.textContent = randomPhrase;
+}
+
+
+const generateButton = document.getElementById('generateButton');
+generateButton.addEventListener('click', updateDisplayedPhrase);
+
+updateDisplayedPhrase();
